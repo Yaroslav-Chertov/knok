@@ -1,0 +1,265 @@
+@use 'variables' as *;
+
+// ─── Buttons ──────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  border: none;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+
+  &--primary {
+    background: linear-gradient(135deg, $accent 0%, $accent-2 100%);
+    color: #fff;
+    box-shadow: 0 4px 22px rgba(124, 141, 255, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(124, 141, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+    &:active { transform: translateY(0) scale(0.98); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $text-2;
+    border: 1px solid $border;
+
+    &:hover {
+      background: $surface-hover;
+      color: $text;
+      border-color: $border-strong;
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    color: $accent;
+    border: 1px solid rgba(124, 141, 255, 0.38);
+
+    &:hover { background: rgba(124, 141, 255, 0.1); }
+  }
+
+  &--lg { padding: 14px 28px; font-size: 15px; }
+  &--sm { padding: 9px 18px; font-size: 13px; }
+  &--xs { padding: 5px 12px; font-size: 12px; }
+
+  &__arrow { transition: transform 0.2s; }
+  &:hover &__arrow { transform: translateX(3px); }
+}
+
+// ─── Forms ────────────────────────────────────────────────
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &--full { grid-column: 1 / -1; }
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-2;
+  letter-spacing: 0.01em;
+}
+
+.form-hint {
+  font-weight: 400;
+  color: $text-3;
+  font-size: 11px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  color: $text;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  padding: 11px 15px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+
+  &::placeholder { color: $text-3; }
+
+  &:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: $accent;
+    box-shadow: 0 0 0 3px $accent-glow;
+  }
+}
+
+.form-textarea { resize: vertical; }
+
+.form-helper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  color: $text-3;
+}
+
+.form-link {
+  color: $accent;
+  text-decoration: none;
+  font-weight: 600;
+  &:hover { text-decoration: underline; }
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-tag {
+  background: rgba(124, 141, 255, 0.12);
+  color: $accent;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+// ─── Range ────────────────────────────────────────────────
+.range-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.range {
+  flex: 1;
+  appearance: none;
+  height: 3px;
+  background: $border;
+  border-radius: 2px;
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 19px; height: 19px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $accent, $accent-2);
+    cursor: pointer;
+    box-shadow: 0 2px 10px $accent-glow;
+    transition: transform 0.15s;
+
+    &:active { transform: scale(1.15); }
+  }
+}
+
+.range-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: $accent;
+  min-width: 30px;
+  text-align: right;
+}
+
+// ─── Status badges ────────────────────────────────────────
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+
+  &::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &--new { background: rgba(255,255,255,0.06); color: $text-2; &::before { background: $text-3; } }
+  &--sent { background: rgba(96,165,250,0.12); color: $blue; &::before { background: $blue; } }
+  &--replied { background: rgba(52,211,153,0.12); color: $green; &::before { background: $green; box-shadow: 0 0 6px $green; } }
+  &--no_reply { background: rgba(251,191,36,0.10); color: $yellow; &::before { background: $yellow; } }
+  &--skip { background: rgba(248,113,113,0.08); color: $red; &::before { background: $red; } }
+}
+
+// ─── Nav ──────────────────────────────────────────────────
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  height: 64px;
+  background: rgba(8, 8, 15, 0.72);
+  border-bottom: 1px solid $border;
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: $text;
+  }
+
+  &__logo-icon { color: $accent; font-size: 18px; }
+  &__actions { display: flex; gap: 12px; align-items: center; }
+}
+
+// ─── Glass tag / eyebrow ──────────────────────────────────
+.glass-tag {
+  display: inline-block;
+  background: rgba(124, 141, 255, 0.1);
+  border: 1px solid rgba(124, 141, 255, 0.22);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: $accent;
+  backdrop-filter: blur(8px);
+}
+
+// ─── AI loader ────────────────────────────────────────────
+.ai-loader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: $radius-sm;
+  background: $surface;
+  border: 1px solid $border;
+  font-size: 14px;
+  color: $text-2;
+  margin-top: 12px;
+}

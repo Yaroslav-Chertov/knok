@@ -1,0 +1,197 @@
+@use 'variables' as *;
+
+// ─── Reset ────────────────────────────────────────────────
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $bg;
+  color: $text;
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ─── Typography scale ─────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Unbounded', sans-serif;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+// ─── Scrollbar ────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  &:hover { background: rgba(255, 255, 255, 0.18); }
+}
+
+// ─── Ambient orbs ─────────────────────────────────────────
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(130px);
+    opacity: 0.45;
+
+    &--1 {
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, #3730a3 0%, transparent 70%);
+      top: -220px; left: -120px;
+      animation: drift1 22s ease-in-out infinite;
+    }
+    &--2 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, #6d28d9 0%, transparent 70%);
+      bottom: -120px; right: -80px;
+      animation: drift2 28s ease-in-out infinite;
+    }
+    &--3 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #1e3a8a 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: drift3 19s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(90px, 70px); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-70px, -90px); }
+}
+@keyframes drift3 {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-44%, -56%); }
+}
+
+// ─── Utility classes ──────────────────────────────────────
+.hidden { display: none !important; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.p-sm { padding: 12px 16px; }
+
+// ─── Spinner ──────────────────────────────────────────────
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(124, 141, 255, 0.2);
+  border-top-color: $accent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ─── Toast ────────────────────────────────────────────────
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 11px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  @include glass;
+  border-color: $border-strong;
+  white-space: nowrap;
+  animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+
+  &--hidden { display: none; }
+}
+
+@keyframes toastIn {
+  from { transform: translateX(-50%) translateY(16px); opacity: 0; }
+}
+
+// ─── Modal ────────────────────────────────────────────────
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+
+  &--hidden { display: none; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } }
+
+.modal {
+  width: 100%;
+  max-width: 560px;
+  padding: 32px;
+  @include glass-card;
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &--wide { max-width: 700px; }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &__close {
+    width: 32px; height: 32px;
+    background: $surface-hover;
+    border: 1px solid $border;
+    border-radius: 50%;
+    color: $text-2;
+    cursor: pointer;
+    @include flex-center;
+    font-size: 13px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(248, 113, 113, 0.15);
+      color: $red;
+      border-color: rgba(248, 113, 113, 0.3);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+}
+
+@keyframes modalIn {
+  from { transform: scale(0.92); opacity: 0; }
+}

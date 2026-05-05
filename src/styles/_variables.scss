@@ -1,0 +1,81 @@
+// ─── Variables ───────────────────────────────────────────
+$bg: #08080f;
+$bg-2: #0d0d1a;
+$surface: rgba(255, 255, 255, 0.04);
+$surface-hover: rgba(255, 255, 255, 0.07);
+$border: rgba(255, 255, 255, 0.09);
+$border-strong: rgba(255, 255, 255, 0.17);
+$text: #eeeef8;
+$text-2: rgba(238, 238, 248, 0.52);
+$text-3: rgba(238, 238, 248, 0.28);
+$accent: #7c8dff;
+$accent-2: #a88bfa;
+$accent-glow: rgba(124, 141, 255, 0.32);
+$green: #34d399;
+$red: #f87171;
+$yellow: #fbbf24;
+$blue: #60a5fa;
+
+$radius: 18px;
+$radius-sm: 11px;
+$radius-xs: 7px;
+$blur: 28px;
+
+// ─── CSS Custom Properties ────────────────────────────────
+:root {
+  --bg: #{$bg};
+  --bg-2: #{$bg-2};
+  --surface: #{$surface};
+  --surface-hover: #{$surface-hover};
+  --border: #{$border};
+  --border-strong: #{$border-strong};
+  --text: #{$text};
+  --text-2: #{$text-2};
+  --text-3: #{$text-3};
+  --accent: #{$accent};
+  --accent-2: #{$accent-2};
+  --accent-glow: #{$accent-glow};
+  --green: #{$green};
+  --red: #{$red};
+  --yellow: #{$yellow};
+  --blue: #{$blue};
+  --radius: #{$radius};
+  --radius-sm: #{$radius-sm};
+  --radius-xs: #{$radius-xs};
+  --blur: #{$blur};
+}
+
+// ─── Mixins ───────────────────────────────────────────────
+@mixin glass {
+  background: $surface;
+  border: 1px solid $border;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+@mixin glass-card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid $border;
+  border-top-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border-radius: $radius;
+}
+
+@mixin glass-inner {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,487 @@
+@use '@/styles/variables' as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ─── Sidebar ──────────────────────────────────────────────
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 232px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  background: rgba(8, 8, 15, 0.8);
+  border-right: 1px solid $border;
+  backdrop-filter: blur(32px);
+  gap: 6px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $border;
+    text-decoration: none;
+    color: $text;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 13px;
+    border-radius: $radius-sm;
+    text-decoration: none;
+    color: $text-2;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.18s;
+    cursor: pointer;
+    border: 1px solid transparent;
+    position: relative;
+
+    &:hover {
+      background: $surface-hover;
+      color: $text;
+    }
+
+    &--active {
+      background: rgba(124, 141, 255, 0.1);
+      color: $accent;
+      border-color: rgba(124, 141, 255, 0.18);
+    }
+
+    &-icon { font-size: 14px; opacity: 0.75; }
+  }
+
+  &__badge {
+    margin-left: auto;
+    background: rgba(124, 141, 255, 0.18);
+    color: $accent;
+    border-radius: 100px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  &__stats {
+    padding: 14px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  &__back {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: $text-3;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: $radius-xs;
+    transition: color 0.2s;
+    margin-top: 4px;
+    &:hover { color: $text-2; }
+  }
+}
+
+.stat-mini {
+  text-align: center;
+  &__val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  &__label {
+    font-size: 9px;
+    color: $text-3;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+}
+
+// ─── Main ─────────────────────────────────────────────────
+.main {
+  margin-left: 232px;
+  flex: 1;
+  padding: 32px;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+// ─── Panel ────────────────────────────────────────────────
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__title {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  &__subtitle { font-size: 13px; color: $text-2; margin-top: 4px; }
+  &__actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+}
+
+// ─── AI Progress ──────────────────────────────────────────
+.ai-progress {
+  padding: 16px 20px;
+  background: $surface;
+  border: 1px solid rgba(124,141,255,0.18);
+  border-radius: $radius-sm;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $accent;
+    margin-bottom: 10px;
+  }
+
+  &__log {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: $text-3;
+    max-height: 110px;
+    overflow-y: auto;
+    line-height: 1.9;
+  }
+}
+
+// ─── Toolbar ──────────────────────────────────────────────
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  backdrop-filter: blur(16px);
+  flex-wrap: wrap;
+
+  &__search {
+    flex: 1;
+    min-width: 180px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid $border;
+    border-radius: $radius-xs;
+    color: $text;
+    font-family: var(--font-manrope), sans-serif;
+    font-size: 13px;
+    padding: 8px 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    &::placeholder { color: $text-3; }
+    &:focus { border-color: $accent; }
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  padding: 5px 13px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid $border;
+  color: $text-3;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: var(--font-manrope), sans-serif;
+
+  &:hover { border-color: $border-strong; color: $text-2; }
+  &--active { background: rgba(124,141,255,0.1); border-color: rgba(124,141,255,0.28); color: $accent; }
+}
+
+// ─── Table ────────────────────────────────────────────────
+.table-wrap {
+  overflow-x: auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid $border;
+  border-top-color: rgba(255,255,255,0.1);
+  border-radius: $radius;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 10px;
+    font-weight: 700;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    border-bottom: 1px solid $border;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+    transition: background 0.13s;
+  }
+
+  tbody tr:hover td { background: rgba(255,255,255,0.025); }
+  tbody tr:last-child td { border-bottom: none; }
+}
+
+.check {
+  width: 15px; height: 15px;
+  cursor: pointer;
+  accent-color: $accent;
+}
+
+.cell {
+  &-company { font-weight: 600; font-size: 13px; }
+  &-sub { font-size: 11px; color: $text-3; margin-top: 2px; }
+  &-email { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: $text-2; }
+  &-date { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: $text-3; white-space: nowrap; }
+}
+
+.row-actions { display: flex; gap: 5px; align-items: center; }
+
+.row-btn {
+  width: 27px; height: 27px;
+  border-radius: 7px;
+  background: transparent;
+  border: 1px solid $border;
+  color: $text-3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.18s;
+
+  &:hover { background: $surface-hover; color: $text; border-color: $border-strong; }
+  &--send:hover { background: rgba(124,141,255,0.14); color: $accent; border-color: rgba(124,141,255,0.28); }
+  &--del:hover { background: rgba(248,113,113,0.1); color: $red; border-color: rgba(248,113,113,0.25); }
+}
+
+// ─── Empty state ──────────────────────────────────────────
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+
+  &__icon { font-size: 36px; color: $text-3; margin-bottom: 14px; }
+  &__title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  &__desc { font-size: 13px; color: $text-2; line-height: 1.65; margin-bottom: 16px; }
+}
+
+// ─── Bulk bar ─────────────────────────────────────────────
+.bulk-bar {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px;
+  border-radius: 100px;
+  background: rgba(8,8,15,0.9);
+  border: 1px solid $border-strong;
+  backdrop-filter: blur(24px);
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-2;
+  animation: toastIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes toastIn { from { transform: translateX(-50%) translateY(14px); opacity: 0; } }
+
+// ─── Campaign ─────────────────────────────────────────────
+.camp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.camp-card {
+  padding: 22px 26px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid $border;
+  border-top-color: rgba(255,255,255,0.12);
+  border-radius: $radius;
+
+  &--full { grid-column: 1 / -1; }
+
+  &__title {
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 16px;
+  }
+
+  &__actions { display: flex; gap: 8px; margin-top: 16px; }
+}
+
+.camp-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.status-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &--idle { background: $text-3; }
+  &--running { background: $green; box-shadow: 0 0 10px $green; animation: pulse 2s infinite; }
+  &--paused { background: $yellow; }
+  &--scheduled { background: $blue; }
+}
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+.camp-meta {
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid $border;
+    font-size: 13px;
+
+    &:last-child { border: none; }
+    span:first-child { color: $text-2; }
+    span:last-child { font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-box {
+  padding: 14px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  text-align: center;
+
+  &__val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 500;
+  }
+  &__label {
+    font-size: 10px;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 4px;
+    font-weight: 700;
+  }
+}
+
+.email-preview {
+  padding: 18px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+
+  &__subject {
+    font-size: 13px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border;
+  }
+
+  &__body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.85;
+    color: $text-2;
+    white-space: pre-wrap;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+}
+
+// ─── Settings ─────────────────────────────────────────────
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.settings-section {
+  padding: 26px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid $border;
+  border-radius: $radius;
+
+  &__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: $text-2;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid $border;
+  }
+
+  .form-group { margin-bottom: 14px; }
+}
+
+// ─── Responsive ───────────────────────────────────────────
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 20px; }
+  .camp-grid, .settings-grid { grid-template-columns: 1fr; }
+}
