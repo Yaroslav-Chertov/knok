@@ -1,13 +1,13 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 // ─── Reset ────────────────────────────────────────────────
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-html { scroll-behavior: smooth; }
 
 body {
   background: $bg;
@@ -22,23 +22,37 @@ body {
 }
 
 // ─── Typography ───────────────────────────────────────────
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-display;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
 
-code, pre, .mono {
+code,
+pre,
+.mono {
   font-family: $font-mono;
 }
 
 // ─── Scrollbar ────────────────────────────────────────────
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
-  &:hover { background: rgba(255, 255, 255, 0.18); }
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
 }
 
 // ─── Ambient orbs ─────────────────────────────────────────
@@ -56,21 +70,27 @@ code, pre, .mono {
     opacity: 0.45;
 
     &--1 {
-      width: 650px; height: 650px;
+      width: 650px;
+      height: 650px;
       background: radial-gradient(circle, #3730a3 0%, transparent 70%);
-      top: -220px; left: -120px;
+      top: -220px;
+      left: -120px;
       animation: drift1 22s ease-in-out infinite;
     }
     &--2 {
-      width: 520px; height: 520px;
+      width: 520px;
+      height: 520px;
       background: radial-gradient(circle, #6d28d9 0%, transparent 70%);
-      bottom: -120px; right: -80px;
+      bottom: -120px;
+      right: -80px;
       animation: drift2 28s ease-in-out infinite;
     }
     &--3 {
-      width: 420px; height: 420px;
+      width: 420px;
+      height: 420px;
       background: radial-gradient(circle, #1e3a8a 0%, transparent 70%);
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       animation: drift3 19s ease-in-out infinite;
     }
@@ -78,28 +98,48 @@ code, pre, .mono {
 }
 
 @keyframes drift1 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(90px, 70px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(90px, 70px);
+  }
 }
 @keyframes drift2 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-70px, -90px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-70px, -90px);
+  }
 }
 @keyframes drift3 {
-  0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-44%, -56%); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-44%, -56%);
+  }
 }
 
 // ─── Spinner ──────────────────────────────────────────────
 .spinner {
-  width: 18px; height: 18px;
+  width: 18px;
+  height: 18px;
   border: 2px solid rgba(124, 141, 255, 0.2);
   border-top-color: $accent;
   border-radius: 50%;
   animation: spin 0.75s linear infinite;
   flex-shrink: 0;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 // ─── Toast ────────────────────────────────────────────────
 .toast {
@@ -122,7 +162,10 @@ code, pre, .mono {
   text-align: center;
 }
 @keyframes toastIn {
-  from { transform: translateX(-50%) translateY(16px); opacity: 0; }
+  from {
+    transform: translateX(-50%) translateY(16px);
+    opacity: 0;
+  }
 }
 
 // ─── Modal ────────────────────────────────────────────────
@@ -139,7 +182,11 @@ code, pre, .mono {
   padding: 16px;
   animation: fadeIn 0.2s ease;
 }
-@keyframes fadeIn { from { opacity: 0; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
 
 .modal {
   width: 100%;
@@ -149,19 +196,23 @@ code, pre, .mono {
   padding: 28px;
   background: #13131f;
   border: 1px solid $border-strong;
-  border-top-color: rgba(255,255,255,0.18);
+  border-top-color: rgba(255, 255, 255, 0.18);
   border-radius: $radius;
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
 
   @media (max-width: 600px) {
     padding: 20px;
     max-height: 95vh;
   }
 
-  &--wide { max-width: 700px; }
+  &--wide {
+    max-width: 700px;
+  }
 
   &__header {
     @include flex-between;
@@ -176,7 +227,8 @@ code, pre, .mono {
   }
 
   &__close {
-    width: 32px; height: 32px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     background: $surface-hover;
     border: 1px solid $border;
@@ -204,7 +256,10 @@ code, pre, .mono {
   }
 }
 @keyframes modalIn {
-  from { transform: scale(0.93) translateY(8px); opacity: 0; }
+  from {
+    transform: scale(0.93) translateY(8px);
+    opacity: 0;
+  }
 }
 
 // ─── AI loader ────────────────────────────────────────────
@@ -223,9 +278,16 @@ code, pre, .mono {
 }
 
 // ─── Utility ──────────────────────────────────────────────
-.hidden { display: none !important; }
+.hidden {
+  display: none !important;
+}
 .sr-only {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0,0,0,0); border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
