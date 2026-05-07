@@ -1,0 +1,124 @@
+@use '@/styles/variables' as *;
+
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid $border;
+  padding: 64px 32px 0;
+
+  @media (max-width: 768px) { padding: 48px 20px 0; }
+}
+
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  padding-bottom: 48px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.footer__brand {}
+
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: $font-display;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  color: $text;
+  margin-bottom: 14px;
+}
+
+.footer__logo_icon { color: $accent; }
+
+.footer__tagline {
+  font-size: 14px;
+  color: $text-2;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 8px;
+}
+
+.footer__social_link {
+  width: 34px; height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $border;
+  border-radius: 9px;
+  color: $text-2;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: $surface;
+
+  &:hover {
+    border-color: $border-strong;
+    color: $text;
+    background: $surface-hover;
+  }
+}
+
+.footer__links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+.footer__col {}
+
+.footer__col_title {
+  font-size: 11px;
+  font-weight: 700;
+  color: $text-3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  font-family: $font-body;
+}
+
+.footer__link {
+  display: block;
+  font-size: 14px;
+  color: $text-2;
+  text-decoration: none;
+  padding: 5px 0;
+  transition: color 0.18s;
+  font-family: $font-body;
+
+  &:hover { color: $text; }
+}
+
+.footer__bottom {
+  border-top: 1px solid $border;
+  padding: 20px 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: $text-3;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer__bottom_made { display: flex; align-items: center; gap: 4px; }
+.footer__heart { color: $red; }

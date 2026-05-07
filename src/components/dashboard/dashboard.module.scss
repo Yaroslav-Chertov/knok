@@ -1,84 +1,275 @@
 @use '@/styles/variables' as *;
 
-$sidebar-width: 228px;
-$topbar-height: 56px;
-
+// ─── Layout ───────────────────────────────────────────────
 .layout {
   display: flex;
   min-height: 100vh;
 }
 
+// ─── Sidebar ──────────────────────────────────────────────
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 220px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px 16px;
+  background: rgba(8, 8, 15, 0.95);
+  border-right: 1px solid $border;
+  backdrop-filter: blur(32px);
+  gap: 4px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 900px) {
+    transform: translateX(-100%);
+    width: 240px;
+    box-shadow: 4px 0 32px rgba(0,0,0,0.5);
+
+    &--open { transform: translateX(0); }
+  }
+}
+
+.sidebar__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 199;
+  backdrop-filter: blur(4px);
+  display: none;
+
+  @media (max-width: 900px) { display: block; }
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border;
+}
+
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: $font-main;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  color: $text;
+}
+
+.sidebar__logo_icon { color: $accent; }
+
+.sidebar__close_btn {
+  display: none;
+  width: 28px; height: 28px;
+  background: $surface-hover;
+  border: 1px solid $border;
+  border-radius: 50%;
+  color: $text-2;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+
+  &:hover { color: $red; background: rgba(248,113,113,0.12); }
+
+  @media (max-width: 900px) { display: flex; }
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+// Nav buttons — properly styled with color, not white
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  color: $text-2;                    // subtle, not white
+  background: transparent;
+  font-family: $font-main;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.18s;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    background: $surface-hover;
+    color: $text;
+    border-color: $border;
+  }
+
+  &--active {
+    background: rgba(124, 141, 255, 0.12);
+    color: $accent;                  // accent color, not white
+    border-color: rgba(124, 141, 255, 0.22);
+
+    .sidebar__link_icon { opacity: 1; color: $accent; }
+  }
+}
+
+.sidebar__link_icon {
+  font-size: 13px;
+  opacity: 0.55;
+  color: $text-3;
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+
+.sidebar__link_label { flex: 1; }
+
+.sidebar__badge {
+  margin-left: auto;
+  background: rgba(124, 141, 255, 0.18);
+  color: $accent;
+  border-radius: 100px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: $font-mono;
+  flex-shrink: 0;
+}
+
+// Stats — clamp to prevent overflow
+.sidebar__stats {
+  padding: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.stat_mini {
+  text-align: center;
+  min-width: 0;                       // allow shrinking
+  overflow: hidden;
+
+  &__val {
+    font-family: $font-mono;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__label {
+    font-size: 8px;
+    color: $text-3;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.sidebar__back {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: $text-3;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: $radius-xs;
+  transition: color 0.2s;
+  margin-top: 4px;
+  &:hover { color: $text-2; }
+}
+
 // ─── Main ─────────────────────────────────────────────────
 .main {
-  margin-left: $sidebar-width;
+  margin-left: 220px;
   flex: 1;
-  padding: 28px 28px 40px;
+  padding: 28px 28px 60px;
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  min-width: 0;
 
   @media (max-width: 900px) {
     margin-left: 0;
-    padding: #{$topbar-height + 16px} 16px 32px;
-  }
-
-  @media (max-width: 480px) {
-    padding: #{$topbar-height + 12px} 12px 28px;
+    padding: 0;
   }
 }
 
 // ─── Mobile topbar ────────────────────────────────────────
 .topbar {
   display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: $topbar-height;
-  z-index: 48;
-  background: rgba(8, 8, 15, 0.95);
-  border-bottom: 1px solid $border;
-  backdrop-filter: blur(24px);
   align-items: center;
   justify-content: space-between;
+  height: 56px;
   padding: 0 16px;
+  background: rgba(8, 8, 15, 0.9);
+  border-bottom: 1px solid $border;
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   @media (max-width: 900px) { display: flex; }
 
-  &__menu {
-    width: 38px; height: 38px;
-    background: $surface;
-    border: 1px solid $border;
-    border-radius: $radius-xs;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 0;
-
-    span {
-      display: block;
-      width: 18px; height: 1.5px;
-      background: $text-2;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-
-    &:hover span { background: $text; }
-  }
-
   &__logo {
+    font-family: $font-main;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: -0.04em;
+    color: $text;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: $font-display;
-    font-weight: 800;
-    font-size: 16px;
-    letter-spacing: -0.03em;
     text-decoration: none;
+  }
+
+  &__menu_btn {
+    width: 36px; height: 36px;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-xs;
+    color: $text-2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+
+    &:hover { background: $surface-hover; color: $text; }
+  }
+
+  &__panel_name {
+    font-size: 14px;
+    font-weight: 700;
     color: $text;
   }
+}
+
+// ─── Panel content ────────────────────────────────────────
+.panel_content {
+  padding: 16px;
+
+  @media (min-width: 901px) { padding: 0; }
 }
 
 // ─── Panel ────────────────────────────────────────────────
@@ -96,14 +287,13 @@ $topbar-height: 56px;
   }
 
   &__title {
-    font-size: clamp(22px, 3vw, 28px);
+    font-size: clamp(20px, 3vw, 26px);
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1.1;
-    font-family: $font-display;
   }
 
-  &__subtitle { font-size: 13px; color: $text-2; margin-top: 3px; }
+  &__subtitle { font-size: 13px; color: $text-2; margin-top: 4px; }
 
   &__actions {
     display: flex;
@@ -118,7 +308,7 @@ $topbar-height: 56px;
 .ai_progress {
   padding: 14px 18px;
   background: $surface;
-  border: 1px solid rgba(124,141,255,0.2);
+  border: 1px solid rgba(124,141,255,0.18);
   border-radius: $radius-sm;
 
   &__header {
@@ -128,7 +318,7 @@ $topbar-height: 56px;
     font-size: 14px;
     font-weight: 600;
     color: $accent;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   &__log {
@@ -160,7 +350,7 @@ $topbar-height: 56px;
     border: 1px solid $border;
     border-radius: $radius-xs;
     color: $text;
-    font-family: $font-body;
+    font-family: $font-main;
     font-size: 13px;
     padding: 7px 12px;
     outline: none;
@@ -177,16 +367,16 @@ $topbar-height: 56px;
 }
 
 .filter_pill {
-  padding: 5px 12px;
+  padding: 5px 11px;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  font-family: $font-body;
   background: transparent;
   border: 1px solid $border;
   color: $text-3;
   cursor: pointer;
   transition: all 0.18s;
+  font-family: $font-main;
   white-space: nowrap;
 
   &:hover { border-color: $border-strong; color: $text-2; }
@@ -196,7 +386,7 @@ $topbar-height: 56px;
 // ─── Table ────────────────────────────────────────────────
 .table_wrap {
   overflow-x: auto;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.03);
   border: 1px solid $border;
   border-top-color: rgba(255,255,255,0.1);
   border-radius: $radius;
@@ -215,11 +405,11 @@ $topbar-height: 56px;
     font-size: 10px;
     font-weight: 700;
     color: $text-3;
-    font-family: $font-body;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     border-bottom: 1px solid $border;
     white-space: nowrap;
+    background: rgba(255,255,255,0.02);
   }
 
   td {
@@ -233,10 +423,13 @@ $topbar-height: 56px;
   tbody tr:last-child td { border-bottom: none; }
 }
 
-.th_hide_sm { @media (max-width: 640px) { display: none; } }
-.th_hide_md { @media (max-width: 800px) { display: none; } }
-.td_hide_sm { @media (max-width: 640px) { display: none; } }
-.td_hide_md { @media (max-width: 800px) { display: none; } }
+// Responsive column hiding
+.th_hide_mobile, .td_hide_mobile {
+  @media (max-width: 600px) { display: none; }
+}
+.th_hide_tablet, .td_hide_tablet {
+  @media (max-width: 768px) { display: none; }
+}
 
 .check {
   width: 15px; height: 15px;
@@ -246,13 +439,13 @@ $topbar-height: 56px;
 
 .cell_company { font-weight: 600; font-size: 13px; }
 .cell_sub { font-size: 11px; color: $text-3; margin-top: 2px; }
-.cell_email { font-family: $font-mono; font-size: 12px; color: $text-2; }
+.cell_email { font-family: $font-mono; font-size: 11px; color: $text-2; }
 .cell_date { font-family: $font-mono; font-size: 11px; color: $text-3; white-space: nowrap; }
 
 .row_actions { display: flex; gap: 4px; align-items: center; }
 
 .row_btn {
-  width: 27px; height: 27px;
+  width: 26px; height: 26px;
   border-radius: 7px;
   background: transparent;
   border: 1px solid $border;
@@ -261,7 +454,7 @@ $topbar-height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   transition: all 0.18s;
 
   &:hover { background: $surface-hover; color: $text; border-color: $border-strong; }
@@ -269,12 +462,13 @@ $topbar-height: 56px;
   &--del:hover { background: rgba(248,113,113,0.1); color: $red; border-color: rgba(248,113,113,0.25); }
 }
 
-// ─── Empty ────────────────────────────────────────────────
+// ─── Empty state ──────────────────────────────────────────
 .empty {
   padding: 56px 20px;
   text-align: center;
-  &__icon { font-size: 32px; color: $text-3; margin-bottom: 12px; }
-  &__title { font-size: 16px; font-weight: 700; margin-bottom: 6px; font-family: $font-display; }
+
+  &__icon { font-size: 32px; color: $text-3; margin-bottom: 14px; }
+  &__title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
   &__desc { font-size: 13px; color: $text-2; line-height: 1.65; margin-bottom: 16px; }
 }
 
@@ -297,10 +491,12 @@ $topbar-height: 56px;
   font-weight: 600;
   color: $text-2;
   animation: bulkIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  max-width: calc(100vw - 32px);
+  justify-content: center;
 }
-@keyframes bulkIn { from { transform: translateX(-50%) translateY(12px); opacity: 0; } }
+
+@keyframes bulkIn { from { transform: translateX(-50%) translateY(14px); opacity: 0; } }
 
 // ─── Campaign ─────────────────────────────────────────────
 .camp_grid {
@@ -325,12 +521,18 @@ $topbar-height: 56px;
     font-weight: 700;
     color: $text-3;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     margin-bottom: 14px;
-    font-family: $font-body;
   }
 
-  &__actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  &__actions { display: flex; gap: 8px; margin-top: 14px; }
 }
 
 .camp_status {
@@ -340,28 +542,30 @@ $topbar-height: 56px;
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 16px;
-  font-family: $font-display;
 }
 
 .status_dot {
   width: 8px; height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
+
   &--idle { background: $text-3; }
-  &--running { background: $green; box-shadow: 0 0 8px $green; animation: pulse 2s infinite; }
+  &--running { background: $green; box-shadow: 0 0 10px $green; animation: pulse 2s infinite; }
   &--paused { background: $yellow; }
   &--scheduled { background: $blue; }
 }
+
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
 .camp_meta {
   &__row {
     display: flex;
     justify-content: space-between;
-    gap: 12px;
-    padding: 7px 0;
+    align-items: center;
+    padding: 8px 0;
     border-bottom: 1px solid $border;
     font-size: 13px;
+
     &:last-child { border: none; }
     span:first-child { color: $text-2; }
     span:last-child { font-weight: 600; font-family: $font-mono; }
@@ -371,18 +575,29 @@ $topbar-height: 56px;
 .stats_grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 10px;
 }
 
 .stat_box {
-  padding: 12px;
+  padding: 14px;
   background: rgba(255,255,255,0.035);
   border: 1px solid $border;
   border-radius: $radius-sm;
   text-align: center;
 
-  &__val { font-family: $font-mono; font-size: 24px; font-weight: 500; color: $text; }
-  &__label { font-size: 10px; color: $text-3; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px; font-weight: 700; }
+  &__val {
+    font-family: $font-mono;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  &__label {
+    font-size: 10px;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 4px;
+    font-weight: 700;
+  }
 }
 
 .email_preview {
@@ -391,8 +606,22 @@ $topbar-height: 56px;
   border: 1px solid $border;
   border-radius: $radius-sm;
 
-  &__subject { font-size: 13px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid $border; }
-  &__body { font-family: $font-mono; font-size: 12px; line-height: 1.85; color: $text-2; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+  &__subject {
+    font-size: 13px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border;
+  }
+
+  &__body {
+    font-family: $font-mono;
+    font-size: 12px;
+    line-height: 1.85;
+    color: $text-2;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+  }
 }
 
 // ─── Settings ─────────────────────────────────────────────

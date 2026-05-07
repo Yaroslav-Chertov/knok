@@ -1,0 +1,214 @@
+@use '@/styles/variables' as *;
+
+.section__container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  @media (max-width: 600px) { padding: 0 16px; }
+}
+
+.section__eyebrow {
+  display: inline-block;
+  background: rgba(124, 141, 255, 0.1);
+  border: 1px solid rgba(124, 141, 255, 0.22);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: $accent;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.section__title {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  font-family: $font-display;
+}
+
+.section__subtitle {
+  font-size: 16px;
+  color: $text-2;
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 56px;
+}
+
+// ─── How it works ─────────────────────────────────────────
+.how {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0;
+  border-top: 1px solid $border;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  @media (max-width: 480px) { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.step {
+  position: relative;
+  padding: 0 24px 0 0;
+
+  @media (max-width: 900px) { padding: 0; }
+
+  &__number {
+    font-family: $font-mono;
+    font-size: 11px;
+    font-weight: 500;
+    color: $accent;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(124,141,255,0.3), transparent);
+    }
+  }
+
+  &__connector {
+    display: none;
+  }
+
+  &__content {}
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: $font-display;
+    letter-spacing: -0.02em;
+  }
+
+  &__desc {
+    font-size: 14px;
+    color: $text-2;
+    line-height: 1.65;
+  }
+}
+
+// ─── Features ─────────────────────────────────────────────
+.features {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0;
+  border-top: 1px solid $border;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 560px) { grid-template-columns: 1fr; }
+}
+
+.feature_card {
+  padding: 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid $border;
+  border-radius: $radius;
+  transition: border-color 0.2s, background 0.2s;
+
+  &:hover {
+    border-color: $border-strong;
+    background: rgba(255,255,255,0.06);
+  }
+
+  &__icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  &__tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: $accent;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: $font-display;
+    letter-spacing: -0.02em;
+  }
+
+  &__desc {
+    font-size: 13px;
+    color: $text-2;
+    line-height: 1.7;
+  }
+}
+
+// ─── Stats ────────────────────────────────────────────────
+.stats {
+  position: relative;
+  z-index: 1;
+  padding: 64px 0;
+  border-top: 1px solid $border;
+  background: rgba(124,141,255,0.03);
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: $border;
+  border: 1px solid $border;
+  border-radius: $radius;
+  overflow: hidden;
+
+  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 400px) { grid-template-columns: 1fr; }
+}
+
+.stat {
+  padding: 32px 24px;
+  background: $bg;
+  text-align: center;
+
+  @media (max-width: 600px) { padding: 24px 16px; }
+
+  &__val {
+    font-family: $font-display;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: $accent;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 4px;
+  }
+
+  &__sub {
+    font-size: 12px;
+    color: $text-3;
+    line-height: 1.5;
+  }
+}

@@ -21,6 +21,16 @@ $radius-sm: 11px;
 $radius-xs: 7px;
 $blur: 28px;
 
+// ─── Font stacks ─────────────────────────────────────────
+$font-body:
+  "Geologica",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+$font-display: "Geologica", sans-serif;
+$font-mono: "DM Mono", "JetBrains Mono", "Fira Code", monospace;
+
 // ─── CSS Custom Properties ────────────────────────────────
 :root {
   --bg: #{$bg};
@@ -43,6 +53,9 @@ $blur: 28px;
   --radius-sm: #{$radius-sm};
   --radius-xs: #{$radius-xs};
   --blur: #{$blur};
+  --font-body: #{$font-body};
+  --font-display: #{$font-display};
+  --font-mono: #{$font-mono};
 }
 
 // ─── Mixins ───────────────────────────────────────────────
