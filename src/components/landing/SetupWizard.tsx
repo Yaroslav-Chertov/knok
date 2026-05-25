@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { saveSettings, callClaude } from "@/lib/storage";
+import { saveSettings, callAI } from "@/lib/storage";
 import type { Settings } from "@/types";
 import s from "./SetupWizard.module.scss";
 
@@ -60,7 +60,8 @@ export default function SetupWizard({ settings, onChange }: Props) {
     setAiLoading(true);
     try {
       if (type === "subject") {
-        const res = await callClaude(
+        const res = await callAI(
+          settings.aiProvider || 'gemini',
           settings.apiKey,
           `Ты эксперт по холодным email-рассылкам. Компания: ${settings.about}. ЦА: ${settings.targetAudience}. Придумай 3 темы письма для холодного аутрича. До 8 слов, на русском, без спама. Верни ТОЛЬКО строки, по одной в строке, без нумерации.`,
           300,
@@ -71,7 +72,8 @@ export default function SetupWizard({ settings, onChange }: Props) {
           showToast("✓ Тема добавлена");
         }
       } else {
-        const res = await callClaude(
+        const res = await callAI(
+          settings.aiProvider || 'gemini',
           settings.apiKey,
           `Ты эксперт по B2B продажам. О компании: ${settings.about}. ЦА: ${settings.targetAudience}. Текущий шаблон: ${settings.emailTemplate || "(пустой)"}. Улучши или напиши холодное письмо. До 200 слов, польза для получателя, переменные {имя} {компания} {должность}, чёткий CTA, русский язык. Верни ТОЛЬКО текст письма.`,
           800,
@@ -173,22 +175,47 @@ export default function SetupWizard({ settings, onChange }: Props) {
                 </div>
                 <div className="form-group">
                   <label className="form-label">
-                    Claude API Key <span className="form-hint">(для AI)</span>
+                    AI Провайдер
+                  </label>
+                  <select
+                    className="form-input"
+                    value={settings.aiProvider || 'gemini'}
+                    onChange={(e) => onChange("aiProvider", e.target.value)}
+                  >
+                    <option value="gemini">Google Gemini (бесплатно, без карты)</option>
+                    <option value="groq">Groq / Llama 3.3 70B (бесплатно)</option>
+                    <option value="deepseek">DeepSeek (очень дёшево)</option>
+                    <option value="claude">Claude / Anthropic</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">
+                    API Key <span className="form-hint">(для AI)</span>
                   </label>
                   <input
                     className="form-input"
                     type="password"
-                    placeholder="sk-ant-api03-..."
+                    placeholder={
+                      (settings.aiProvider || 'gemini') === 'gemini' ? 'AIza...' :
+                      (settings.aiProvider || 'gemini') === 'groq' ? 'gsk_...' :
+                      (settings.aiProvider || 'gemini') === 'deepseek' ? 'sk-...' :
+                      'sk-ant-api03-...'
+                    }
                     value={settings.apiKey}
                     onChange={(e) => onChange("apiKey", e.target.value)}
                   />
                   <div className="form-helper">
                     <a
-                      href="https://console.anthropic.com"
+                      href={
+                        (settings.aiProvider || 'gemini') === 'gemini' ? 'https://aistudio.google.com/app/apikey' :
+                        (settings.aiProvider || 'gemini') === 'groq' ? 'https://console.groq.com/keys' :
+                        (settings.aiProvider || 'gemini') === 'deepseek' ? 'https://platform.deepseek.com/api_keys' :
+                        'https://console.anthropic.com'
+                      }
                       target="_blank"
                       className="form-link"
                     >
-                      Получить бесплатно →
+                      Получить ключ →
                     </a>
                     <span>Хранится локально</span>
                   </div>

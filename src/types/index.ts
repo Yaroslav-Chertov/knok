@@ -14,11 +14,14 @@ export interface Lead {
   aiGenerated?: boolean
 }
 
+export type AIProvider = 'claude' | 'gemini' | 'deepseek' | 'groq'
+
 export interface Settings {
   companyName: string
   about: string
   targetAudience: string
   examples: string
+  aiProvider: AIProvider
   apiKey: string
   emailSubject: string
   emailTemplate: string

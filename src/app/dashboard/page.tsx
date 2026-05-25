@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {
   loadLeads, saveLeads, loadSettings, saveSettings,
   genId, personalize, formatDateShort, STATUS_LABELS,
-  getTodaySent, incrementTodaySent, callClaude, exportLeadsCSV
+  getTodaySent, incrementTodaySent, callClaude, callAI, exportLeadsCSV
 } from '@/lib/storage'
 import type { Lead, LeadStatus, Settings } from '@/types'
 import Sidebar from '@/components/dashboard/Sidebar'
@@ -91,12 +91,12 @@ export default function Dashboard() {
   }
 
   async function findLeadsWithAI() {
-    if (!settings.apiKey) { showToast('Добавьте Claude API Key в Настройках'); setPanel('settings'); return }
+    if (!settings.apiKey) { showToast('Добавьте API Key в Настройках'); setPanel('settings'); return }
     setAiRunning(true); setAiLog([]); setAiText('AI анализирует вашу ЦА...')
     addLog('Инициализация...')
     try {
-      setAiText('Генерация списка компаний...'); addLog('Запрос к Claude API...')
-      const raw = await callClaude(settings.apiKey,
+      setAiText('Генерация списка компаний...'); addLog('Запрос к AI...')
+      const raw = await callAI(settings.aiProvider || 'gemini', settings.apiKey,
         `Ты эксперт по B2B продажам и бизнес-разведке.\nО компании: ${settings.about}\nЦА: ${settings.targetAudience}\nПримеры: ${settings.examples}\nСоставь список из 15 реальных российских компаний, подходящих под ЦА.\nВерни ТОЛЬКО JSON массив без пояснений и markdown:\n[{"company":"Авито","website":"avito.ru","industry":"Маркетплейс","contact":"Иван Петров","position":"Директор по маркетингу","email":"i.petrov@avito.ru","note":"Крупнейший маркетплейс РФ"}]\nEmail формируй по паттерну firstname.lastname@domain.`, 2000)
       addLog('Парсинг ответа...')
       let companies: any[] = []
@@ -417,7 +417,8 @@ export default function Dashboard() {
               </div>
               <div className={s.settings_section}>
                 <div className={s.settings_section__title}>Интеграции</div>
-                <div className="form-group"><label className="form-label">Claude API Key</label><input className="form-input" type="password" value={settings.apiKey || ''} onChange={e => updSet('apiKey', e.target.value)} /></div>
+                <div className="form-group"><label className="form-label">AI Провайдер</label><select className="form-input" value={settings.aiProvider || 'gemini'} onChange={e => updSet('aiProvider', e.target.value)}><option value="gemini">Google Gemini (бесплатно)</option><option value="groq">Groq / Llama 3.3 70B (бесплатно)</option><option value="deepseek">DeepSeek (дёшево)</option><option value="claude">Claude / Anthropic</option></select></div>
+                <div className="form-group"><label className="form-label">API Key</label><input className="form-input" type="password" value={settings.apiKey || ''} onChange={e => updSet('apiKey', e.target.value)} /></div>
                 <div className="form-group"><label className="form-label">Email отправителя</label><input className="form-input" type="email" value={settings.senderEmail || ''} onChange={e => updSet('senderEmail', e.target.value)} /></div>
                 <div className="form-group"><label className="form-label">EmailJS Service ID</label><input className="form-input" value={settings.emailjsService || ''} onChange={e => updSet('emailjsService', e.target.value)} /></div>
                 <div className="form-group"><label className="form-label">EmailJS Template ID</label><input className="form-input" value={settings.emailjsTemplate || ''} onChange={e => updSet('emailjsTemplate', e.target.value)} /></div>

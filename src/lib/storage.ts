@@ -6,6 +6,7 @@ export const defaultSettings: Settings = {
   about: '',
   targetAudience: '',
   examples: '',
+  aiProvider: 'gemini',
   apiKey: '',
   emailSubject: '',
   emailTemplate: '',
@@ -96,8 +97,84 @@ export const STATUS_LABELS: Record<string, string> = {
   skip: 'Пропуск',
 }
 
-/* ─── Claude API ─── */
+/* ─── AI API (multi-provider) ─── */
+
+// Keep old name as alias for backward compat
 export async function callClaude(apiKey: string, prompt: string, maxTokens = 1500): Promise<string> {
+  return callAI('claude', apiKey, prompt, maxTokens)
+}
+
+export async function callAI(
+  provider: import('@/types').AIProvider,
+  apiKey: string,
+  prompt: string,
+  maxTokens = 1500
+): Promise<string> {
+  if (provider === 'gemini') {
+    // Google Gemini — free tier 1500 req/day, no card needed
+    const model = 'gemini-2.0-flash'
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: maxTokens },
+      }),
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error((err as any).error?.message || `Gemini API Error ${res.status}`)
+    }
+    const data = await res.json()
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || ''
+  }
+
+  if (provider === 'deepseek') {
+    // DeepSeek — very cheap, good quality
+    const res = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error((err as any).error?.message || `DeepSeek API Error ${res.status}`)
+    }
+    const data = await res.json()
+    return data.choices?.[0]?.message?.content || ''
+  }
+
+  if (provider === 'groq') {
+    // Groq — free tier, Llama 3.3 70B, very fast
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error((err as any).error?.message || `Groq API Error ${res.status}`)
+    }
+    const data = await res.json()
+    return data.choices?.[0]?.message?.content || ''
+  }
+
+  // Default: Claude (Anthropic)
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -114,7 +191,7 @@ export async function callClaude(apiKey: string, prompt: string, maxTokens = 150
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error((err as any).error?.message || `API Error ${res.status}`)
+    throw new Error((err as any).error?.message || `Claude API Error ${res.status}`)
   }
   const data = await res.json()
   return data.content?.[0]?.text || ''
