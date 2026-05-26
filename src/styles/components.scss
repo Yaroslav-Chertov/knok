@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 // ─── Buttons ──────────────────────────────────────────────
 .btn {
@@ -18,14 +18,24 @@
   &--primary {
     background: linear-gradient(135deg, $accent 0%, $accent-2 100%);
     color: #fff;
-    box-shadow: 0 4px 22px rgba(124, 141, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.22);
+    box-shadow:
+      0 4px 22px rgba(124, 141, 255, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
 
     &:hover:not(:disabled) {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 32px rgba(124, 141, 255, 0.5), inset 0 1px 0 rgba(255,255,255,0.22);
+      box-shadow:
+        0 8px 32px rgba(124, 141, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
-    &:active { transform: translateY(0) scale(0.98); }
-    &:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
   }
 
   &--ghost {
@@ -45,15 +55,30 @@
     color: $accent;
     border: 1px solid rgba(124, 141, 255, 0.38);
 
-    &:hover { background: rgba(124, 141, 255, 0.1); }
+    &:hover {
+      background: rgba(124, 141, 255, 0.1);
+    }
   }
 
-  &--lg { padding: 13px 26px; font-size: 15px; }
-  &--sm { padding: 8px 16px; font-size: 13px; }
-  &--xs { padding: 5px 11px; font-size: 12px; }
+  &--lg {
+    padding: 13px 26px;
+    font-size: 15px;
+  }
+  &--sm {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  &--xs {
+    padding: 5px 11px;
+    font-size: 12px;
+  }
 
-  &__arrow { transition: transform 0.2s; }
-  &:hover &__arrow { transform: translateX(3px); }
+  &__arrow {
+    transition: transform 0.2s;
+  }
+  &:hover &__arrow {
+    transform: translateX(3px);
+  }
 }
 
 // ─── Forms ────────────────────────────────────────────────
@@ -62,15 +87,20 @@
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 
-  @media (max-width: 600px) { grid-template-columns: 1fr; }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  margin-bottom: 20px;
 
-  &--full { grid-column: 1 / -1; }
+  &--full {
+    grid-column: 1 / -1;
+  }
 }
 
 .form-label {
@@ -98,11 +128,16 @@
   font-family: $font-body;
   font-size: 14px;
   padding: 10px 14px;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
   outline: none;
   appearance: none;
 
-  &::placeholder { color: $text-3; }
+  &::placeholder {
+    color: $text-3;
+  }
 
   &:focus {
     background: rgba(255, 255, 255, 0.08);
@@ -111,7 +146,10 @@
   }
 }
 
-.form-textarea { resize: vertical; line-height: 1.6; }
+.form-textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
 
 .form-select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(238,238,248,0.3)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -120,7 +158,10 @@
   padding-right: 36px;
   cursor: pointer;
 
-  option { background: #13131f; color: $text; }
+  option {
+    background: #13131f;
+    color: $text;
+  }
 }
 
 .form-helper {
@@ -136,7 +177,9 @@
   color: $accent;
   text-decoration: none;
   font-weight: 600;
-  &:hover { text-decoration: underline; }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .label-row {
@@ -172,14 +215,17 @@
 
   &::-webkit-slider-thumb {
     appearance: none;
-    width: 19px; height: 19px;
+    width: 19px;
+    height: 19px;
     border-radius: 50%;
     background: linear-gradient(135deg, $accent, $accent-2);
     cursor: pointer;
     box-shadow: 0 2px 10px $accent-glow;
     transition: transform 0.15s;
 
-    &:active { transform: scale(1.15); }
+    &:active {
+      transform: scale(1.15);
+    }
   }
 }
 
@@ -206,23 +252,57 @@
   letter-spacing: 0.01em;
 
   &::before {
-    content: '';
-    width: 5px; height: 5px;
+    content: "";
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     flex-shrink: 0;
   }
 
-  &--new { background: rgba(255,255,255,0.06); color: $text-2; &::before { background: $text-3; } }
-  &--sent { background: rgba(96,165,250,0.12); color: $blue; &::before { background: $blue; } }
-  &--replied { background: rgba(52,211,153,0.12); color: $green; &::before { background: $green; box-shadow: 0 0 6px $green; } }
-  &--no_reply { background: rgba(251,191,36,0.10); color: $yellow; &::before { background: $yellow; } }
-  &--skip { background: rgba(248,113,113,0.08); color: $red; &::before { background: $red; } }
+  &--new {
+    background: rgba(255, 255, 255, 0.06);
+    color: $text-2;
+    &::before {
+      background: $text-3;
+    }
+  }
+  &--sent {
+    background: rgba(96, 165, 250, 0.12);
+    color: $blue;
+    &::before {
+      background: $blue;
+    }
+  }
+  &--replied {
+    background: rgba(52, 211, 153, 0.12);
+    color: $green;
+    &::before {
+      background: $green;
+      box-shadow: 0 0 6px $green;
+    }
+  }
+  &--no_reply {
+    background: rgba(251, 191, 36, 0.1);
+    color: $yellow;
+    &::before {
+      background: $yellow;
+    }
+  }
+  &--skip {
+    background: rgba(248, 113, 113, 0.08);
+    color: $red;
+    &::before {
+      background: $red;
+    }
+  }
 }
 
 // ─── Nav ──────────────────────────────────────────────────
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -234,7 +314,9 @@
   backdrop-filter: blur(36px);
   -webkit-backdrop-filter: blur(36px);
 
-  @media (max-width: 600px) { padding: 0 18px; }
+  @media (max-width: 600px) {
+    padding: 0 18px;
+  }
 
   &__logo {
     display: flex;
@@ -248,8 +330,15 @@
     color: $text;
   }
 
-  &__logo-icon { color: $accent; font-size: 18px; }
-  &__actions { display: flex; gap: 10px; align-items: center; }
+  &__logo-icon {
+    color: $accent;
+    font-size: 18px;
+  }
+  &__actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 }
 
 // ─── Glass tag / eyebrow ──────────────────────────────────

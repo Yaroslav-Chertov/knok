@@ -61,7 +61,7 @@ export default function SetupWizard({ settings, onChange }: Props) {
     try {
       if (type === "subject") {
         const res = await callAI(
-          settings.aiProvider || 'gemini',
+          settings.aiProvider || "gemini",
           settings.apiKey,
           `Ты эксперт по холодным email-рассылкам. Компания: ${settings.about}. ЦА: ${settings.targetAudience}. Придумай 3 темы письма для холодного аутрича. До 8 слов, на русском, без спама. Верни ТОЛЬКО строки, по одной в строке, без нумерации.`,
           300,
@@ -73,7 +73,7 @@ export default function SetupWizard({ settings, onChange }: Props) {
         }
       } else {
         const res = await callAI(
-          settings.aiProvider || 'gemini',
+          settings.aiProvider || "gemini",
           settings.apiKey,
           `Ты эксперт по B2B продажам. О компании: ${settings.about}. ЦА: ${settings.targetAudience}. Текущий шаблон: ${settings.emailTemplate || "(пустой)"}. Улучши или напиши холодное письмо. До 200 слов, польза для получателя, переменные {имя} {компания} {должность}, чёткий CTA, русский язык. Верни ТОЛЬКО текст письма.`,
           800,
@@ -174,16 +174,18 @@ export default function SetupWizard({ settings, onChange }: Props) {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">
-                    AI Провайдер
-                  </label>
+                  <label className="form-label">AI Провайдер</label>
                   <select
                     className="form-input"
-                    value={settings.aiProvider || 'gemini'}
+                    value={settings.aiProvider || "gemini"}
                     onChange={(e) => onChange("aiProvider", e.target.value)}
                   >
-                    <option value="gemini">Google Gemini (бесплатно, без карты)</option>
-                    <option value="groq">Groq / Llama 3.3 70B (бесплатно)</option>
+                    <option value="gemini">
+                      Google Gemini (бесплатно, без карты)
+                    </option>
+                    <option value="groq">
+                      Groq / Llama 3.3 70B (бесплатно)
+                    </option>
                     <option value="deepseek">DeepSeek (очень дёшево)</option>
                     <option value="claude">Claude / Anthropic</option>
                   </select>
@@ -196,10 +198,13 @@ export default function SetupWizard({ settings, onChange }: Props) {
                     className="form-input"
                     type="password"
                     placeholder={
-                      (settings.aiProvider || 'gemini') === 'gemini' ? 'AIza...' :
-                      (settings.aiProvider || 'gemini') === 'groq' ? 'gsk_...' :
-                      (settings.aiProvider || 'gemini') === 'deepseek' ? 'sk-...' :
-                      'sk-ant-api03-...'
+                      (settings.aiProvider || "gemini") === "gemini"
+                        ? "AIza..."
+                        : (settings.aiProvider || "gemini") === "groq"
+                          ? "gsk_..."
+                          : (settings.aiProvider || "gemini") === "deepseek"
+                            ? "sk-..."
+                            : "sk-ant-api03-..."
                     }
                     value={settings.apiKey}
                     onChange={(e) => onChange("apiKey", e.target.value)}
@@ -207,10 +212,13 @@ export default function SetupWizard({ settings, onChange }: Props) {
                   <div className="form-helper">
                     <a
                       href={
-                        (settings.aiProvider || 'gemini') === 'gemini' ? 'https://aistudio.google.com/app/apikey' :
-                        (settings.aiProvider || 'gemini') === 'groq' ? 'https://console.groq.com/keys' :
-                        (settings.aiProvider || 'gemini') === 'deepseek' ? 'https://platform.deepseek.com/api_keys' :
-                        'https://console.anthropic.com'
+                        (settings.aiProvider || "gemini") === "gemini"
+                          ? "https://aistudio.google.com/app/apikey"
+                          : (settings.aiProvider || "gemini") === "groq"
+                            ? "https://console.groq.com/keys"
+                            : (settings.aiProvider || "gemini") === "deepseek"
+                              ? "https://platform.deepseek.com/api_keys"
+                              : "https://console.anthropic.com"
                       }
                       target="_blank"
                       className="form-link"
@@ -275,7 +283,7 @@ export default function SetupWizard({ settings, onChange }: Props) {
                     rows={12}
                     style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}
                     placeholder={
-                      "Добрый день, {имя},\n\nМеня зовут Ярослав, я из дизайн-студии «Луч»..."
+                      "Добрый день, {имя},\n\nМеня зовут Ярослав, я из дизайн-студии «Boo»..."
                     }
                     value={settings.emailTemplate}
                     onChange={(e) => onChange("emailTemplate", e.target.value)}

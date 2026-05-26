@@ -1,4 +1,4 @@
-@use '@/styles/variables' as *;
+@use "@/styles/variables" as *;
 
 $sidebar-width: 228px;
 $topbar-height: 56px;
@@ -32,7 +32,9 @@ $topbar-height: 56px;
 .topbar {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: $topbar-height;
   z-index: 48;
   background: rgba(8, 8, 15, 0.95);
@@ -42,10 +44,13 @@ $topbar-height: 56px;
   justify-content: space-between;
   padding: 0 16px;
 
-  @media (max-width: 900px) { display: flex; }
+  @media (max-width: 900px) {
+    display: flex;
+  }
 
   &__menu {
-    width: 38px; height: 38px;
+    width: 38px;
+    height: 38px;
     background: $surface;
     border: 1px solid $border;
     border-radius: $radius-xs;
@@ -59,13 +64,16 @@ $topbar-height: 56px;
 
     span {
       display: block;
-      width: 18px; height: 1.5px;
+      width: 18px;
+      height: 1.5px;
       background: $text-2;
       border-radius: 2px;
       transition: all 0.2s;
     }
 
-    &:hover span { background: $text; }
+    &:hover span {
+      background: $text;
+    }
   }
 
   &__logo {
@@ -103,7 +111,11 @@ $topbar-height: 56px;
     font-family: $font-display;
   }
 
-  &__subtitle { font-size: 13px; color: $text-2; margin-top: 3px; }
+  &__subtitle {
+    font-size: 13px;
+    color: $text-2;
+    margin-top: 3px;
+  }
 
   &__actions {
     display: flex;
@@ -118,7 +130,7 @@ $topbar-height: 56px;
 .ai_progress {
   padding: 14px 18px;
   background: $surface;
-  border: 1px solid rgba(124,141,255,0.2);
+  border: 1px solid rgba(124, 141, 255, 0.2);
   border-radius: $radius-sm;
 
   &__header {
@@ -156,7 +168,7 @@ $topbar-height: 56px;
   &__search {
     flex: 1;
     min-width: 140px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid $border;
     border-radius: $radius-xs;
     color: $text;
@@ -165,8 +177,12 @@ $topbar-height: 56px;
     padding: 7px 12px;
     outline: none;
     transition: border-color 0.2s;
-    &::placeholder { color: $text-3; }
-    &:focus { border-color: $accent; }
+    &::placeholder {
+      color: $text-3;
+    }
+    &:focus {
+      border-color: $accent;
+    }
   }
 }
 
@@ -189,16 +205,23 @@ $topbar-height: 56px;
   transition: all 0.18s;
   white-space: nowrap;
 
-  &:hover { border-color: $border-strong; color: $text-2; }
-  &--active { background: rgba(124,141,255,0.1); border-color: rgba(124,141,255,0.28); color: $accent; }
+  &:hover {
+    border-color: $border-strong;
+    color: $text-2;
+  }
+  &--active {
+    background: rgba(124, 141, 255, 0.1);
+    border-color: rgba(124, 141, 255, 0.28);
+    color: $accent;
+  }
 }
 
 // ─── Table ────────────────────────────────────────────────
 .table_wrap {
   overflow-x: auto;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid $border;
-  border-top-color: rgba(255,255,255,0.1);
+  border-top-color: rgba(255, 255, 255, 0.1);
   border-radius: $radius;
   -webkit-overflow-scrolling: touch;
 }
@@ -224,35 +247,77 @@ $topbar-height: 56px;
 
   td {
     padding: 11px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     vertical-align: middle;
     transition: background 0.13s;
   }
 
-  tbody tr:hover td { background: rgba(255,255,255,0.025); }
-  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.025);
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
 }
 
-.th_hide_sm { @media (max-width: 640px) { display: none; } }
-.th_hide_md { @media (max-width: 800px) { display: none; } }
-.td_hide_sm { @media (max-width: 640px) { display: none; } }
-.td_hide_md { @media (max-width: 800px) { display: none; } }
+.th_hide_sm {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+.th_hide_md {
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+.td_hide_sm {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+.td_hide_md {
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
 
 .check {
-  width: 15px; height: 15px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   accent-color: $accent;
 }
 
-.cell_company { font-weight: 600; font-size: 13px; }
-.cell_sub { font-size: 11px; color: $text-3; margin-top: 2px; }
-.cell_email { font-family: $font-mono; font-size: 12px; color: $text-2; }
-.cell_date { font-family: $font-mono; font-size: 11px; color: $text-3; white-space: nowrap; }
+.cell_company {
+  font-weight: 600;
+  font-size: 13px;
+}
+.cell_sub {
+  font-size: 11px;
+  color: $text-3;
+  margin-top: 2px;
+}
+.cell_email {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $text-2;
+}
+.cell_date {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $text-3;
+  white-space: nowrap;
+}
 
-.row_actions { display: flex; gap: 4px; align-items: center; }
+.row_actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
 
 .row_btn {
-  width: 27px; height: 27px;
+  width: 27px;
+  height: 27px;
   border-radius: 7px;
   background: transparent;
   border: 1px solid $border;
@@ -264,18 +329,44 @@ $topbar-height: 56px;
   font-size: 12px;
   transition: all 0.18s;
 
-  &:hover { background: $surface-hover; color: $text; border-color: $border-strong; }
-  &--send:hover { background: rgba(124,141,255,0.14); color: $accent; border-color: rgba(124,141,255,0.28); }
-  &--del:hover { background: rgba(248,113,113,0.1); color: $red; border-color: rgba(248,113,113,0.25); }
+  &:hover {
+    background: $surface-hover;
+    color: $text;
+    border-color: $border-strong;
+  }
+  &--send:hover {
+    background: rgba(124, 141, 255, 0.14);
+    color: $accent;
+    border-color: rgba(124, 141, 255, 0.28);
+  }
+  &--del:hover {
+    background: rgba(248, 113, 113, 0.1);
+    color: $red;
+    border-color: rgba(248, 113, 113, 0.25);
+  }
 }
 
 // ─── Empty ────────────────────────────────────────────────
 .empty {
   padding: 56px 20px;
   text-align: center;
-  &__icon { font-size: 32px; color: $text-3; margin-bottom: 12px; }
-  &__title { font-size: 16px; font-weight: 700; margin-bottom: 6px; font-family: $font-display; }
-  &__desc { font-size: 13px; color: $text-2; line-height: 1.65; margin-bottom: 16px; }
+  &__icon {
+    font-size: 32px;
+    color: $text-3;
+    margin-bottom: 12px;
+  }
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-family: $font-display;
+  }
+  &__desc {
+    font-size: 13px;
+    color: $text-2;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
 }
 
 // ─── Bulk bar ─────────────────────────────────────────────
@@ -290,7 +381,7 @@ $topbar-height: 56px;
   gap: 10px;
   padding: 10px 16px;
   border-radius: 100px;
-  background: rgba(8,8,15,0.95);
+  background: rgba(8, 8, 15, 0.95);
   border: 1px solid $border-strong;
   backdrop-filter: blur(24px);
   font-size: 13px;
@@ -300,7 +391,12 @@ $topbar-height: 56px;
   white-space: nowrap;
   flex-wrap: nowrap;
 }
-@keyframes bulkIn { from { transform: translateX(-50%) translateY(12px); opacity: 0; } }
+@keyframes bulkIn {
+  from {
+    transform: translateX(-50%) translateY(12px);
+    opacity: 0;
+  }
+}
 
 // ─── Campaign ─────────────────────────────────────────────
 .camp_grid {
@@ -308,17 +404,21 @@ $topbar-height: 56px;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 
-  @media (max-width: 640px) { grid-template-columns: 1fr; }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .camp_card {
   padding: 20px 22px;
-  background: rgba(255,255,255,0.045);
+  background: rgba(255, 255, 255, 0.045);
   border: 1px solid $border;
-  border-top-color: rgba(255,255,255,0.12);
+  border-top-color: rgba(255, 255, 255, 0.12);
   border-radius: $radius;
 
-  &--full { grid-column: 1 / -1; }
+  &--full {
+    grid-column: 1 / -1;
+  }
 
   &__title {
     font-size: 10px;
@@ -330,7 +430,12 @@ $topbar-height: 56px;
     font-family: $font-body;
   }
 
-  &__actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
 }
 
 .camp_status {
@@ -344,15 +449,34 @@ $topbar-height: 56px;
 }
 
 .status_dot {
-  width: 8px; height: 8px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
-  &--idle { background: $text-3; }
-  &--running { background: $green; box-shadow: 0 0 8px $green; animation: pulse 2s infinite; }
-  &--paused { background: $yellow; }
-  &--scheduled { background: $blue; }
+  &--idle {
+    background: $text-3;
+  }
+  &--running {
+    background: $green;
+    box-shadow: 0 0 8px $green;
+    animation: pulse 2s infinite;
+  }
+  &--paused {
+    background: $yellow;
+  }
+  &--scheduled {
+    background: $blue;
+  }
 }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
 
 .camp_meta {
   &__row {
@@ -362,9 +486,16 @@ $topbar-height: 56px;
     padding: 7px 0;
     border-bottom: 1px solid $border;
     font-size: 13px;
-    &:last-child { border: none; }
-    span:first-child { color: $text-2; }
-    span:last-child { font-weight: 600; font-family: $font-mono; }
+    &:last-child {
+      border: none;
+    }
+    span:first-child {
+      color: $text-2;
+    }
+    span:last-child {
+      font-weight: 600;
+      font-family: $font-mono;
+    }
   }
 }
 
@@ -376,23 +507,48 @@ $topbar-height: 56px;
 
 .stat_box {
   padding: 12px;
-  background: rgba(255,255,255,0.035);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid $border;
   border-radius: $radius-sm;
   text-align: center;
 
-  &__val { font-family: $font-mono; font-size: 24px; font-weight: 500; color: $text; }
-  &__label { font-size: 10px; color: $text-3; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px; font-weight: 700; }
+  &__val {
+    font-family: $font-mono;
+    font-size: 24px;
+    font-weight: 500;
+    color: $text;
+  }
+  &__label {
+    font-size: 10px;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 3px;
+    font-weight: 700;
+  }
 }
 
 .email_preview {
   padding: 16px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid $border;
   border-radius: $radius-sm;
 
-  &__subject { font-size: 13px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid $border; }
-  &__body { font-family: $font-mono; font-size: 12px; line-height: 1.85; color: $text-2; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+  &__subject {
+    font-size: 13px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $border;
+  }
+  &__body {
+    font-family: $font-mono;
+    font-size: 12px;
+    line-height: 1.85;
+    color: $text-2;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+  }
 }
 
 // ─── Settings ─────────────────────────────────────────────
@@ -401,12 +557,14 @@ $topbar-height: 56px;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .settings_section {
   padding: 22px;
-  background: rgba(255,255,255,0.045);
+  background: rgba(255, 255, 255, 0.045);
   border: 1px solid $border;
   border-radius: $radius;
 
@@ -421,5 +579,7 @@ $topbar-height: 56px;
     letter-spacing: 0.06em;
   }
 
-  .form-group { margin-bottom: 12px; }
+  .form-group {
+    margin-bottom: 12px;
+  }
 }

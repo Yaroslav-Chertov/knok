@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section className={s.hero}>
       <div className={`glass-tag ${s.hero__eyebrow}`}>
-        AI ищет · AI пишет · Вы закрываете
+        AI ищет · AI пишет · Вы закрываете сделки
       </div>
       <h1 className={s.hero__title}>
         Новые клиенты начинаются
